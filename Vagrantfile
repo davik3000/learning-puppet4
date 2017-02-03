@@ -51,37 +51,37 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # clients
   config.vm.define "client", primary: true do |client|
     client.vm.hostname = "client.example.com"
-    client.vm.network :private_network, ip: "192.168.250.10"
+    client.vm.network :private_network, ip: "192.168.250.10", virtualbox__intnet: true
     client.vm.provision "shell", inline: $setupscript
   end
 
   config.vm.define "web1", primary: true do |webserver|
     webserver.vm.hostname = "web1.example.com"
-    webserver.vm.network :private_network, ip: "192.168.250.21"
+    webserver.vm.network :private_network, ip: "192.168.250.21", virtualbox__intnet: true
     webserver.vm.provision "shell", inline: $setupscript
   end
   config.vm.define "web2", primary: true do |webserver|
     webserver.vm.hostname = "web2.example.com"
-    webserver.vm.network :private_network, ip: "192.168.250.22"
+    webserver.vm.network :private_network, ip: "192.168.250.22", virtualbox__intnet: true
     webserver.vm.provision "shell", inline: $setupscript
   end
   config.vm.define "web3", primary: true do |webserver|
     webserver.vm.hostname = "web3.example.com"
-    webserver.vm.network :private_network, ip: "192.168.250.23"
+    webserver.vm.network :private_network, ip: "192.168.250.23", virtualbox__intnet: true
     webserver.vm.provision "shell", inline: $setupscript
   end
 
   # A puppetmaster
   config.vm.define "puppetmaster", autostart: false do |puppetmaster|
     puppetmaster.vm.hostname = "puppetmaster.example.com"
-    puppetmaster.vm.network :private_network, ip: "192.168.250.5"
+    puppetmaster.vm.network :private_network, ip: "192.168.250.5", virtualbox__intnet: true
     puppetmaster.vm.provision "shell", inline: $setupscript
   end
 
   # Puppet Server
   config.vm.define "puppetserver", autostart: false do |puppetserver|
     puppetserver.vm.hostname = "puppetserver.example.com"
-    puppetserver.vm.network :private_network, ip: "192.168.250.6"
+    puppetserver.vm.network :private_network, ip: "192.168.250.6", virtualbox__intnet: true
     puppetserver.vm.provision "shell", inline: $setupscript
     puppetserver.vm.provider :virtualbox do |ps|
       ps.memory = 1024
@@ -91,7 +91,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Puppet Dashboard
   config.vm.define "dashboard", autostart: false do |puppetserver|
     puppetserver.vm.hostname = "dashserver.example.com"
-    puppetserver.vm.network :private_network, ip: "192.168.250.7"
+    puppetserver.vm.network :private_network, ip: "192.168.250.7", virtualbox__intnet: true
     puppetserver.vm.provision "shell", inline: $setupscript
     puppetserver.vm.provider :virtualbox do |ps|
       ps.memory = 1024
