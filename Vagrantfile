@@ -75,7 +75,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # clients
   config.vm.define "client", primary: true do |client|
-    client.vb.name = nodeDefItem.name
     client.vm.hostname = "client.example.com"
     client.vm.network :private_network, ip: "192.168.250.10", virtualbox__intnet: true
 

@@ -11,6 +11,7 @@ SHARED_PUPPET_DIR=
 function addPuppetlabsToSudoSecurePath()
 {
   # Add /opt/puppetlabs to the sudo secure_path
+  echo " > add /opt/puppetlabs to sudo secure_path"
   sed -i -e 's#\(secure_path = .*\)$#\1:/opt/puppetlabs/bin#' /etc/sudoers
 }
 function configurePuppet()
@@ -30,6 +31,7 @@ function configurePuppet()
 function installPuppetConf()
 {
   # Install puppet.conf in user directory to share code directory
+  echo " > install puppet settings"
   mkdir -p /home/vagrant/.puppetlabs/etc/puppet
   cp /vagrant/etc-puppet/personal-puppet.conf /home/vagrant/.puppetlabs/etc/puppet/puppet.conf
   chown -R vagrant:vagrant /home/vagrant/.puppetlabs
@@ -37,6 +39,7 @@ function installPuppetConf()
 function installHieraConf()
 {
   # Install example hiera settings in global directory
+  echo " > install hiera settings"
   mkdir -p /etc/puppetlabs/puppet
   cp /vagrant/etc-puppet/puppet.conf /etc/puppetlabs/puppet/
   mkdir -p /etc/puppetlabs/code

@@ -53,7 +53,7 @@ function installXfce()
 }
 function learningPuppet()
 {
-  local FILEPATH="${SCRIPT_DIR}/learningPuppet.sh"
+  local FILEPATH="${SCRIPT_DIR}/learning-puppet.sh"
   sourceFile ${FILEPATH}
 }
 
