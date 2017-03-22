@@ -4,7 +4,7 @@
 exec_vagrant_halt() {
   echo "-----"
   echo "Halt running machines"
-  vagrant halt
+  vagrant halt $@
   return $?
 }
 disable_vagrant_plugins() {
@@ -21,13 +21,13 @@ exec_vagrant_woPlugins() {
   disable_vagrant_plugins
 
   echo " > create and boot VMs"
-  vagrant up
+  vagrant up $@
   return $?
 }
 exec_vagrant_provision() {
   echo "-----"
   echo "Applying provision to nodes"
-  vagrant provision
+  vagrant provision $@
   return $?
 }
 exec_vagrant_wPlugin() {
@@ -38,15 +38,15 @@ exec_vagrant_wPlugin() {
   enable_vagrant_plugins
 
   echo " > reboot the VMs"
-  vagrant reload
+  vagrant reload $@
   return $?
 }
 
 # Main
-exec_vagrant_halt
+exec_vagrant_halt $@
 
 if [ $? -eq 0 ] ; then
-  exec_vagrant_woPlugins
+  exec_vagrant_woPlugins $@
 fi
 
 #if [ $? -eq 0 ] ; then
@@ -54,7 +54,7 @@ fi
 #fi
 
 if [ $? -eq 0 ] ; then
-  exec_vagrant_wPlugin
+  exec_vagrant_wPlugin $@
 fi
 
 echo "-----"
