@@ -35,8 +35,8 @@ if [ -d ${CONFIG_DIR} ] ; then
   hardlockDomain
   #applyHosts
 
-  source ${CONFIG_DIR}/learning-puppet_install.sh ${CONFIG_DIR}
-  source ${CONFIG_DIR}/learning-puppet_config.sh ${CONFIG_DIR}
+  #source ${CONFIG_DIR}/learning-puppet_install.sh ${CONFIG_DIR}
+  #source ${CONFIG_DIR}/learning-puppet_config.sh ${CONFIG_DIR}
 fi;
 
 echo "-----"
