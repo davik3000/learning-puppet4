@@ -7,42 +7,6 @@ Vagrant.require_version ">= 1.5.2"
 
 # DART moved provision script in config/scripts/learning-puppet.sh
 
-## Copy files into place
-#$setupscript = <<END
-#  # Hardlock domain name
-#  echo 'supercede domain-name "example.com";' > /etc/dhcp/dhclient.conf
-#
-#  # Install etc/hosts for convenience
-#  cp /vagrant/etc-puppet/hosts /etc/hosts
-#
-#  # Add /opt/puppetlabs to the sudo secure_path
-#  sed -i -e 's#\(secure_path = .*\)$#\1:/opt/puppetlabs/bin#' /etc/sudoers
-#
-#  # Install puppet.conf in user directory to share code directory
-#  mkdir -p /home/vagrant/.puppetlabs/etc/puppet
-#  cp /vagrant/etc-puppet/personal-puppet.conf /home/vagrant/.puppetlabs/etc/puppet/puppet.conf
-#  chown -R vagrant:vagrant /home/vagrant/.puppetlabs
-#
-#  # Install example hiera settings in global directory
-#  mkdir -p /etc/puppetlabs/puppet
-#  cp /vagrant/etc-puppet/puppet.conf /etc/puppetlabs/puppet/
-#  mkdir -p /etc/puppetlabs/code
-#  chown -R vagrant:vagrant /etc/puppetlabs
-#
-#   # Provide the URL to the Puppet Labs yum repo on login
-#   echo "
-# You should start by enabling the Puppet Labs Puppet Collection 1 release repo
-#    sudo yum install http://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
-# 
-# Then install Puppet 4 and its companion packages
-#    sudo yum install -y puppet-agent
-#    
-# " > /etc/motd
-#   # Enable MotD
-#   sed -i -e 's/^PrintMotd no/PrintMotd yes/' /etc/ssh/sshd_config
-#   systemctl reload sshd
-#END
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # #####
   # Common configuration variables
@@ -142,17 +106,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # provisioning
     # #####
     # DART clean from previous provision
-    webserver.vm.provision :shell do |s|
+    puppetmaster.vm.provision :shell do |s|
       s.path = _provisionScript_clean_hostPath
       s.args = [_provisionScript_clean_args]
     end
     # DART send config
-    webserver.vm.provision :file do |f|
+    puppetmaster.vm.provision :file do |f|
       f.source = _provisionFolder_config_hostPath
       f.destination = _provisionFolder_config_guestPath
     end
     # DART apply config
-    webserver.vm.provision :shell do |s|
+    puppetmaster.vm.provision :shell do |s|
       s.path = _provisionScript_provision_hostPath
       s.args = [_provisionScript_provision_args]
     end
